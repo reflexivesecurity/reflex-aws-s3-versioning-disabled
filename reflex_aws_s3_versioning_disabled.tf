@@ -1,10 +1,22 @@
 module "reflex_aws_s3_versioning_disabled" {
   source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.5.4"
   rule_name        = "S3VersioningDisabled"
-  rule_description = "TODO: Provide rule description"
+  rule_description = "A Reflex rule to alert when S3 bucket versioning is disabled "
 
   event_pattern = <<PATTERN
-# TODO: Provide event pattern
+{
+    "detail-type": ["AWS API Call via CloudTrail"],
+    "source": ["aws.s3"],
+    "detail": {
+        "eventSource": ["s3.amazonaws.com"],
+        "eventName": ["PutBucketVersioning"],
+        "requestParameters": {
+            "VersioningConfiguration": {
+                "Status": ["Suspended"]
+            }
+        }
+    }
+}
 PATTERN
 
   function_name   = "S3VersioningDisabled"
