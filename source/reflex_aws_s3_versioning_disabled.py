@@ -8,21 +8,14 @@ from reflex_core import AWSRule
 
 
 class S3VersioningDisabled(AWSRule):
-    """ TODO: A description for your rule """
-
-    # TODO: Instantiate whatever boto3 client you'll need, if any.
-    # Example:
-    # client = boto3.client("s3")
+    """A Reflex rule to alert when S3 bucket versioning is disabled """
 
     def __init__(self, event):
         super().__init__(event)
 
     def extract_event_data(self, event):
         """ Extract required event data """
-        # TODO: Extract any data you need from the triggering event.
-        #
-        # Example:
-        # self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
+        self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
 
     def resource_compliant(self):
         """
@@ -30,7 +23,8 @@ class S3VersioningDisabled(AWSRule):
 
         Return True if it is compliant, and False if it is not.
         """
-        # TODO: Implement a check for determining if the resource is compliant
+        # Always return false because any request we receive should be reported.
+        return False
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
@@ -38,7 +32,7 @@ class S3VersioningDisabled(AWSRule):
         # message is sent in all notifications.
         #
         # Example:
-        # return f"The S3 bucket {self.bucket_name} was unencrypted. AES-256 encryption was enabled."
+        return f"S3 bucket versioning was disabled on {self.bucket_name}."
 
 
 def lambda_handler(event, _):
