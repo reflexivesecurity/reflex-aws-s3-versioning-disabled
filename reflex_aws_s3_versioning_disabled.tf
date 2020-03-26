@@ -25,13 +25,7 @@ PATTERN
   lambda_runtime  = "python3.7"
   environment_variable_map = {
     SNS_TOPIC = var.sns_topic_arn,
-    
   }
-  custom_lambda_policy = <<EOF
-# TODO: Provide required lambda permissions policy
-EOF
-
-
 
   queue_name    = "S3VersioningDisabled"
   delay_seconds = 0
