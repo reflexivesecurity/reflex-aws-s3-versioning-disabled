@@ -2,15 +2,11 @@ version: 1
 update_configs:
   - package_manager: "python"
     directory: "/source"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     automerged_updates:
       - match:
           dependency_type: "all"
           update_type: "semver:minor"
-  - package_manager: "terraform"
-    directory: "."
-    update_schedule: "daily"
-    automerged_updates:
       - match:
           dependency_type: "all"
-          update_type: "semver:minor"
+          update_type: "semver:patch"
