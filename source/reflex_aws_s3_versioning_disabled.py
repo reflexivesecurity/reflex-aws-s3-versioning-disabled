@@ -28,10 +28,6 @@ class S3VersioningDisabled(AWSRule):
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
-        # TODO: Provide a human readable message describing what occured. This
-        # message is sent in all notifications.
-        #
-        # Example:
         return f"S3 bucket versioning was disabled on {self.bucket_name}."
 
 
