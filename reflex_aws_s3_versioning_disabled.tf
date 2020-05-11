@@ -1,5 +1,5 @@
 module "reflex_aws_s3_versioning_disabled" {
-  source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.5.7"
+  source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.6.0"
   rule_name        = "S3VersioningDisabled"
   rule_description = "A Reflex rule to alert when S3 bucket versioning is disabled "
 
