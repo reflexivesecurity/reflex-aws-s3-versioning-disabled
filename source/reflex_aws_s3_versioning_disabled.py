@@ -26,9 +26,21 @@ class S3VersioningDisabled(AWSRule):
         # Always return false because any request we receive should be reported.
         return False
 
+    def remediate(self):
+        """ Fix the non-compliant resource """
+        self.enable_versioning_for_bucket()
+
+    def enable_versioning_for_bucket(self):
+        self.client.put_bucket_versioning(
+            Bucket=self.bucket_name, VersioningConfiguration={"Status": "Enabled"}
+        )
+
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
-        return f"S3 bucket versioning was disabled on {self.bucket_name}."
+        message = f"S3 bucket versioning was disabled on {self.bucket_name}."
+        if self.should_remediate():
+            message += " Versioning has been re-enabled for the bucket."
+        return message
 
 
 def lambda_handler(event, _):
