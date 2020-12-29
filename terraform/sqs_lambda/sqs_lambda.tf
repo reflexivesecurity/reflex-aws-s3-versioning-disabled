@@ -9,7 +9,23 @@ module "sqs_lambda" {
   lambda_runtime            = "python3.7"
   environment_variable_map = {
     SNS_TOPIC = var.sns_topic_arn,
+    MODE      = var.mode
   }
+  custom_lambda_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:PutBucketVersioning"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+
 
   queue_name    = "S3VersioningDisabled"
   delay_seconds = 0
